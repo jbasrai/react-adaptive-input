@@ -1,10 +1,9 @@
-var express = require('express');
-var app = express();
+const webpack = require('webpack');
+const WebpackDevServer = require('webpack-dev-server');
+const config = require('./webpack.config.js');
 
-app.get('/', function(req, res) {
-	res.send('hello world');
-});
-
-app.listen(3000, function() {
-	console.log('server started');
+new WebpackDevServer(webpack(config), {
+    publicPath: config.output.publicPath
+}).listen(3000, function() {
+    console.log('dev server started on 3000');
 });

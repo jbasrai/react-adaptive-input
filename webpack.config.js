@@ -1,13 +1,24 @@
 const path = require('path');
+const webpack = require('webpack');
 
 module.exports = {
-	entry: path.join(__dirname, 'src/index.js'),
+	entry: [
+		'webpack-dev-server/client?http://0.0.0.0:3000',
+		'./demo/src/index'
+	],
 	output: {
 		filename: 'index.js',
-		path: __dirname + '/dist',	
+		path: path.join(__dirname, 'dist'),
+		publicPath: '/demo'
 	},
 	resolve: {
-		extensions: ['', '.js', '.jsx']
+		extensions: ['', '.js', '.jsx'],
+		root: path.join(__dirname, 'src'),
+		moduleDirectories: [
+			'node_modules',
+			'src',
+			path.join('demo', 'src'),
+		]
 	},
 	module: {
 		loaders: [
@@ -19,5 +30,8 @@ module.exports = {
 				}
 			}
 		]
-	}
+	},
+	plugins: [
+		new webpack.HotModuleReplacementPlugin()
+	]
 };

@@ -20,9 +20,12 @@ const HiddenSpan = React.createClass({
         const style = update(this.props.fontMap, {
             $merge: {
                 visibility: 'hidden',
-                position: 'absolute' 
+                position: 'absolute',
+                whiteSpace: 'pre'
             }
         });
+
+        console.log(this.props.value);
 
         return (
             <span 
@@ -61,9 +64,8 @@ export default React.createClass({
         this.setState({ fontMap });
     },
     render: function() {
-        const escapedValue = this.state.value
-            .replace(/\s/g, '_')
-            .concat('__');
+        const escapedValue = (this.state.value || this.props.inputProps.placeholder)
+            .concat('  ');
 
         const style = update(this.state.fontMap, {
             $merge: { width: this.state.width }

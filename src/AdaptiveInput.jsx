@@ -10,15 +10,20 @@ const HiddenSpan = React.createClass({
         this.updateWidth();
     },
     shouldComponentUpdate: function(nextProps, nextState) {
-        return this.props.value !== nextProps.value;
+        return this.props.value !== nextProps.value || 
+            JSON.stringify(this.props.fontMap) !== JSON.stringify(nextProps.fontMap);
     },
     componentDidUpdate: function() {
         this.updateWidth();
     },
     render: function() {
-        const style = update(this.props.fontDetails, {
-            $merge: { visibility: 'hidden', position: 'absolute' }
+        const style = update(this.props.fontMap, {
+            $merge: {
+                visibility: 'hidden',
+                position: 'absolute' 
+            }
         });
+
         return (
             <span 
                 ref={ (el) => this.span = el }
@@ -38,26 +43,29 @@ export default React.createClass({
     updateWidth: function(width) {
         this.setState({ width });
     },
-    propTypes: {
-        fontDetails: function(props, propName) {
-            const fontDetails = props[propName];
-            const { fontSize, fontWeight, fontFamily } = fontDetails;
-            if (!(fontSize && fontWeight && fontFamily))  {
-                return new Error('Invalid fontDetails prop');
-            }
-        }
-    },
     getInitialState: function() {
         return { 
-            value: this.props.inputProps && this.props.inputProps.value || ''
+            value: this.props.inputProps && this.props.inputProps.value || '',
+            fontMap: {}
         };
+    },
+    componentDidMount: function() {
+        const computedStyle = window.getComputedStyle(this.input);
+        const fontPropsRaw = ['font-size', 'font-family', 'font-weight'];
+        const fontValues = fontPropsRaw.map((p) => computedStyle.getPropertyValue(p));
+
+        const fontMap = {};
+        const fontProps = ['fontSize', 'fontFamily', 'fontWeight'];
+        fontProps.forEach((value, index) => fontMap[value] = fontValues[index]);
+
+        this.setState({ fontMap });
     },
     render: function() {
         const escapedValue = this.state.value
             .replace(/\s/g, '_')
             .concat('__');
 
-        const style = update(this.props.fontDetails, {
+        const style = update(this.state.fontMap, {
             $merge: { width: this.state.width }
         });
 
@@ -65,7 +73,7 @@ export default React.createClass({
             <div>
                 <HiddenSpan 
                     value={ escapedValue }
-                    fontDetails={ this.props.fontDetails }
+                    fontMap={ this.state.fontMap }
                     updateWidth={ this.updateWidth }
                 />
                 <input 

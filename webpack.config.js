@@ -14,11 +14,6 @@ module.exports = {
 	resolve: {
 		extensions: ['', '.js', '.jsx'],
 		root: path.join(__dirname, 'src'),
-		moduleDirectories: [
-			'node_modules',
-			'src',
-			path.join('demo', 'src'),
-		]
 	},
 	module: {
 		loaders: [

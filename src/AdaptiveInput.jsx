@@ -5,15 +5,18 @@ import HiddenSpan from './HiddenSpan'
 export default React.createClass({
     onChange: function(event) {
         const value = event.target.value;
-        this.props.onChange && this.props.onChange(event, value) || 
-            this.setState({ value });
+        const providedOnChange = this.props.inputProps && this.props.inputProps.onChange;
+        const defaultOnChange = (value) => this.setState({ value });
+        providedOnChange && providedOnChange(event, value) || defaultOnChange(value);
     },
     updateWidth: function(width) {
         this.setState({ width });
     },
     getInitialState: function() {
+        const providedValue = this.props.inputProps && this.props.inputProps.value;
+        const defaultValue = '';
         return { 
-            value: this.props.inputProps && this.props.inputProps.value || '',
+            value: providedValue || defaultValue,
             fontMap: {}
         };
     },
@@ -28,26 +31,38 @@ export default React.createClass({
 
         this.setState({ fontMap });
     },
+    componentWillReceiveProps: function(nextProps) {
+        const value = nextProps.inputProps && nextProps.inputProps.value;
+        if (value) {
+            this.setState({ value });
+        }
+    },
     render: function() {
-        const escapedValue = (this.state.value || this.props.inputProps.placeholder)
-            .concat('  ');
+        const value = this.state.value;
+        const placeholder = this.props.inputProps && this.props.inputProps.placeholder;
+        const hiddenVal = (value || placeholder || value).concat('  ');
 
-        const style = update(this.state.fontMap, {
+        const styleProps = this.props.inputProps && this.props.inputProps.style || {};
+        var style;
+        style = update(styleProps, {
+            $merge: this.state.fontMap,
+        });
+        style = update(styleProps, {
             $merge: { width: this.state.width }
         });
 
         return (
             <div>
                 <HiddenSpan 
-                    value={ escapedValue }
+                    value={ hiddenVal }
                     fontMap={ this.state.fontMap }
                     updateWidth={ this.updateWidth }
                 />
                 <input 
                     { ...this.props.inputProps }
-                    ref={ (el) => this.input = el }
                     value={ this.state.value }
                     onChange={ this.onChange }
+                    ref={ (el) => this.input = el }
                     style={ style }
                 />
             </div>

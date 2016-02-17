@@ -3,22 +3,23 @@ import update from 'react-addons-update'
 import HiddenSpan from './HiddenSpan'
 
 export default React.createClass({
-    onChange: function(event) {
-        const value = event.target.value;
-        const providedOnChange = this.props.inputProps && this.props.inputProps.onChange;
-        const defaultOnChange = (value) => this.setState({ value });
-        providedOnChange && providedOnChange(event, value) || defaultOnChange(value);
-    },
+	onChange: function(event) {
+		const { onChange } = this.props.inputProps;
+		const newValue = event.target.value;
+		onChange(event, newValue);
+	},
     updateWidth: function(width) {
         this.setState({ width });
     },
+    propTypes: {
+    	inputProps: React.PropTypes.object.isRequired,
+    	padding: React.PropTypes.number
+    },
+    getDefaultProps: function() {
+    	return { padding: 2 }
+    },
     getInitialState: function() {
-        const providedValue = this.props.inputProps && this.props.inputProps.value;
-        const defaultValue = '';
-        return { 
-            value: providedValue || defaultValue,
-            fontMap: {}
-        };
+        return { fontMap: {} };
     },
     componentDidMount: function() {
         const computedStyle = window.getComputedStyle(this.input);
@@ -31,24 +32,17 @@ export default React.createClass({
 
         this.setState({ fontMap });
     },
-    componentWillReceiveProps: function(nextProps) {
-        const value = nextProps.inputProps && nextProps.inputProps.value;
-        if (value) {
-            this.setState({ value });
-        }
-    },
     render: function() {
-        const value = this.state.value;
-        const placeholder = this.props.inputProps && this.props.inputProps.placeholder;
-        const hiddenVal = (value || placeholder || value).concat('  ');
+    	const { value, placeholder, style } = this.props.inputProps;
+        const padding = ' '.repeat(this.props.padding);
+        const hiddenVal = (value || placeholder || value).concat(padding);
 
-        const styleProps = this.props.inputProps && this.props.inputProps.style || {};
-        var style;
-        style = update(styleProps, {
+        var styleProps;
+        styleProps = update(style || {}, {
             $merge: this.state.fontMap,
         });
-        style = update(styleProps, {
-            $merge: { width: this.state.width }
+        styleProps = update(styleProps, {
+            $merge: { width: '40px' }
         });
 
         return (
@@ -60,10 +54,9 @@ export default React.createClass({
                 />
                 <input 
                     { ...this.props.inputProps }
-                    value={ this.state.value }
                     onChange={ this.onChange }
                     ref={ (el) => this.input = el }
-                    style={ style }
+                    style={ styleProps }
                 />
             </div>
         );

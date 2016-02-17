@@ -1,32 +1,18 @@
 import React from 'react'
 import AdaptiveInput from '../src/AdaptiveInput'
 
-export const PlainAdaptiveInput = React.createClass({
-    render: function() {
-        return (<AdaptiveInput />);
-    }
-});
-
-export const AdaptiveInputWithValue = React.createClass({
+export const AdaptiveInputImpl = React.createClass({
     getInitialState: function() {
-        return { value: 'across the lustrous, sun-plaided' };
+        return { value: 'HELLO' }
     },
     render: function() {
         const inputProps = {
             value: this.state.value,
+            onChange: (event, newValue) => {
+                this.setState({ value: newValue.toUpperCase() })
+            }
         };
 
         return (<AdaptiveInput inputProps={ inputProps } />);
     }
-});
-
-export const AdaptiveInputWithOnChange = React.createClass({
-    render: function() {
-
-    }
-});
-
-export const AdaptiveInputWithValueAndOnChange = React.createClass({
-    render: function() {
-    } 
 });

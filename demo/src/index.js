@@ -1,10 +1,6 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import AdaptiveInput from 'AdaptiveInput'
+import Demo from './components/Demo'
 
-const inputProps = {
-    style: { fontSize: '20px' }
-};
-
-ReactDOM.render(<AdaptiveInput />, 
+ReactDOM.render(<Demo />, 
     document.getElementById('react-mount'));

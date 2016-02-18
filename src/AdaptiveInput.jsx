@@ -42,7 +42,7 @@ export default React.createClass({
             $merge: this.state.fontMap,
         });
         styleProps = update(styleProps, {
-            $merge: { width: '40px' }
+            $merge: { width: this.state.width }
         });
 
         return (

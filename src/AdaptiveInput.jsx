@@ -54,6 +54,7 @@ export default React.createClass({
                 />
                 <input 
                     { ...this.props.inputProps }
+                    className="react-adaptive-input"
                     onChange={ this.onChange }
                     ref={ (el) => this.input = el }
                     style={ styleProps }

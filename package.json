@@ -1,6 +1,6 @@
 {
   "name": "react-adaptive-input",
-  "version": "0.1.1",
+  "version": "0.1.3",
   "description": "dynamically scaling input component for react",
   "main": "dist/index.js",
   "files": [
@@ -9,7 +9,8 @@
   "scripts": {
     "start": "node server",
     "test": "mocha test/test.js --compilers js:babel-core/register --reporter nyan",
-    "dist": "rm -rf dist && mkdir dist && babel src -d dist"
+    "dist": "rm -rf dist && mkdir dist && babel src -d dist",
+    "publish": "npm run dist && npm publish && git push"
   },
   "keywords": [
     "react"

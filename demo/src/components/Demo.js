@@ -12,7 +12,8 @@ export default React.createClass({
 				this.setState({ value: newValue.toUpperCase() })
 			},
 			style: {
-				fontSize: '24px'
+				fontSize: '24px',
+				padding: '10px'
 			}
 		}
 

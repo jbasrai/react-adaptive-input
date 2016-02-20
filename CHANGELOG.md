@@ -1,5 +1,8 @@
 # Changelog
 
+## 0.1.4
+- Support margin and padding in the input
+
 ## 0.1.3
 - Add className prop to input component
 

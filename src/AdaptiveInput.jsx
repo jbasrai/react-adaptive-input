@@ -1,6 +1,7 @@
 import React from 'react'
 import update from 'react-addons-update'
 import HiddenSpan from './HiddenSpan'
+import camelcase from 'camelcase'
 
 export default React.createClass({
 	onChange: function(event) {
@@ -19,29 +20,32 @@ export default React.createClass({
     	return { padding: 2 }
     },
     getInitialState: function() {
-        return { fontMap: {} };
+        return { importantStyles: {} };
     },
     componentDidMount: function() {
         const computedStyle = window.getComputedStyle(this.input);
-        const fontPropsRaw = ['font-size', 'font-family', 'font-weight'];
-        const fontValues = fontPropsRaw.map((p) => computedStyle.getPropertyValue(p));
+        const styleNames = [
+            'font-size', 
+            'font-family', 
+            'font-weight',
+            'padding',
+            'margin'
+        ];
+        const styleValues = styleNames.map((p) => computedStyle.getPropertyValue(p));
 
-        const fontMap = {};
-        const fontProps = ['fontSize', 'fontFamily', 'fontWeight'];
-        fontProps.forEach((value, index) => fontMap[value] = fontValues[index]);
+        const importantStyles = {};
+        styleNames
+            .map(name => camelcase(name))
+            .forEach((name, index) => importantStyles[name] = styleValues[index]);
 
-        this.setState({ fontMap });
+        this.setState({ importantStyles });
     },
     render: function() {
     	const { value, placeholder, style } = this.props.inputProps;
         const padding = ' '.repeat(this.props.padding);
         const hiddenVal = (value || placeholder || value).concat(padding);
 
-        var styleProps;
-        styleProps = update(style || {}, {
-            $merge: this.state.fontMap,
-        });
-        styleProps = update(styleProps, {
+        const styleProps = update(style || {}, {
             $merge: { width: this.state.width }
         });
 
@@ -49,7 +53,7 @@ export default React.createClass({
             <div>
                 <HiddenSpan 
                     value={ hiddenVal }
-                    fontMap={ this.state.fontMap }
+                    importantStyles={ this.state.importantStyles }
                     updateWidth={ this.updateWidth }
                 />
                 <input 

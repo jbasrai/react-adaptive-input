@@ -11,13 +11,13 @@ export default React.createClass({
     },
     shouldComponentUpdate: function(nextProps, nextState) {
         return this.props.value !== nextProps.value || 
-            JSON.stringify(this.props.fontMap) !== JSON.stringify(nextProps.fontMap);
+            JSON.stringify(this.props.importantStyles) !== JSON.stringify(nextProps.importantStyles);
     },
     componentDidUpdate: function() {
         this.updateWidth();
     },
     render: function() {
-        const style = update(this.props.fontMap, {
+        const style = update(this.props.importantStyles, {
             $merge: {
                 visibility: 'hidden',
                 position: 'absolute',

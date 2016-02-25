@@ -1,5 +1,8 @@
 # Changelog
 
+## 0.2.1
+- Bump
+
 ## O.2.0
 - Change default padding from 2 to 1
 

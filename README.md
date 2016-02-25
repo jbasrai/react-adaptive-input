@@ -6,7 +6,7 @@ This is a component that renders an input element that scales with its text.
 
 Here it is in action:
 
-
+![](https://raw.githubusercontent.com/jbasrai/react-adaptive-input/master/adaptive-input.gif)
 
 ## Installation
 
@@ -49,10 +49,8 @@ For example:
 ```javascript
 const inputProps = {
   value: this.state.value,
-  onChange: (event, newValue) => {
-    this.setState({ value })
-  },
-  placeholder: 'Enter your name`
+  onChange: (_, newValue) => this.setState({ value: newValue }),
+  placeholder: 'Enter your name'
 }
 ```
 Notice `onChange` has an additional `newValue` parameter added for convenience:
@@ -65,4 +63,4 @@ function onChange(event, newValue)
 
 Depending on your styling, you might need to manually tweak the width of the input element. `padding` is a number value that adds extra width equivalent to _n_ space characters (`' '`).
 
-The default padding is `1`.
+The default padding is `2`.

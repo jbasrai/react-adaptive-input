@@ -17,7 +17,7 @@ export default React.createClass({
     	padding: React.PropTypes.number
     },
     getDefaultProps: function() {
-    	return { padding: 2 }
+    	return { padding: 1 }
     },
     getInitialState: function() {
         return { importantStyles: {} };

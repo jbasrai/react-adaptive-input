@@ -1,5 +1,8 @@
 # Changelog
 
+## O.2.0
+- Change default padding from 2 to 1
+
 ## 0.1.4
 - Support margin and padding in the input
 

@@ -1,6 +1,6 @@
 {
   "name": "react-adaptive-input",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "description": "dynamically scaling input component for react",
   "main": "dist/index.js",
   "files": [

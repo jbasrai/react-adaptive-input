@@ -43,7 +43,7 @@ export default React.createClass({
     render: function() {
     	const { value, placeholder, style } = this.props.inputProps;
         const padding = ' '.repeat(this.props.padding);
-        const hiddenVal = (value || placeholder || value).concat(padding);
+        const hiddenVal = (value || placeholder || value).toString().concat(padding);
 
         const styleProps = update(style || {}, {
             $merge: { width: this.state.width }

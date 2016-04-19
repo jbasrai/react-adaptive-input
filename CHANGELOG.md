@@ -1,5 +1,8 @@
 # Changelog
 
+## 0.2.2
+- Fix bug when value is not a string
+
 ## 0.2.1
 - Bump
 

@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.2.3
+- Merge `className` passed in `inputProps` with default
+- Changes related to default padding
+	- Fix tests
+	- Update README
+
 ## 0.2.2
 - Fix bug when value is not a string
 

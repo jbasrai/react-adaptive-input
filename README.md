@@ -63,4 +63,4 @@ function onChange(event, newValue)
 
 Depending on your styling, you might need to manually tweak the width of the input element. `padding` is a number value that adds extra width equivalent to _n_ space characters (`' '`).
 
-The default padding is `2`.
+The default padding is `1`.

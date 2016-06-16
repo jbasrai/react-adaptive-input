@@ -35,7 +35,7 @@ describe('AdaptiveInput component', () => {
         });
 
         it('creates a hidden span with the same content (plus padding)', () => {
-            expect(scope.spanElement.textContent).to.be.equal('HELLO  ');
+            expect(scope.spanElement.textContent).to.be.equal('HELLO ');
         });
 
         // jsdom doesn't actually render, so will have to find a way to test this later
@@ -43,7 +43,7 @@ describe('AdaptiveInput component', () => {
 
         it('updates the hidden span when its value is updated', () => {
             appendInputValue(scope.inputElement, 'world');
-            expect(scope.spanElement.textContent).to.be.equal('HELLOWORLD  ');
+            expect(scope.spanElement.textContent).to.be.equal('HELLOWORLD ');
         });
 
         // same here

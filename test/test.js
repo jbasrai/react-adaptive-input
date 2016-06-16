@@ -1,4 +1,4 @@
-import { AdaptiveInputImpl } from './AdaptiveInputApp'
+import { AdaptiveInputImpl, ClassNameExample } from './AdaptiveInputApp'
 import AdaptiveInput from '../src/AdaptiveInput'
 import chai, { expect } from 'chai'
 import jsdom from 'jsdom';
@@ -49,6 +49,12 @@ describe('AdaptiveInput component', () => {
         // same here
         it('copies the new width of the hidden span');
     });
+
+    it('should merge `className` passed from `inputProps`', () => {
+        const { inputElement } = renderIntoDocumentAndGetElements(<ClassNameExample />);
+
+        expect(inputElement.className).to.be.equal('react-adaptive-input foo');
+    })
 });
 
 function renderIntoDocumentAndGetElements(component) {

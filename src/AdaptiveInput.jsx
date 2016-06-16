@@ -41,7 +41,10 @@ export default React.createClass({
         this.setState({ importantStyles });
     },
     render: function() {
-    	const { value, placeholder, style } = this.props.inputProps;
+    	const { value, placeholder, style, className } = this.props.inputProps;
+        const updatedClassName = className ?
+            `react-adaptive-input ${className}` :
+            'react-adaptive-input'
         const padding = ' '.repeat(this.props.padding);
         const hiddenVal = (value || placeholder || value).toString().concat(padding);
 
@@ -58,7 +61,7 @@ export default React.createClass({
                 />
                 <input 
                     { ...this.props.inputProps }
-                    className="react-adaptive-input"
+                    className={ updatedClassName }
                     onChange={ this.onChange }
                     ref={ (el) => this.input = el }
                     style={ styleProps }

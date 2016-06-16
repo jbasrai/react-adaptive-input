@@ -1,5 +1,8 @@
 # Changelog
 
+## 0.2.5
+- Change container element to `span` from `div`
+
 ## 0.2.4
 - Merge `className` passed in `inputProps` with default
 

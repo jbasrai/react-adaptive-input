@@ -53,7 +53,7 @@ export default React.createClass({
         });
 
         return (
-            <div>
+            <span>
                 <HiddenSpan 
                     value={ hiddenVal }
                     importantStyles={ this.state.importantStyles }
@@ -66,7 +66,7 @@ export default React.createClass({
                     ref={ (el) => this.input = el }
                     style={ styleProps }
                 />
-            </div>
+            </span>
         );
     }
 });
